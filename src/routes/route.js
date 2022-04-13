@@ -14,13 +14,9 @@ router.get("/bookgetinfo", RouterBookControllers.getBookInfo);
 
 router.post("/getBookInYear", RouterBookControllers.getBooksInYear);
 
-router.post("/getParticularBooks", RouterBookControllers.getSeparetlybooks)
+router.post("/getParticularBooks", RouterBookControllers.getParticularBooks)
 
-router.post("/getParticularYear", RouterBookControllers.getSeparetlyYears)
-
-router.post("/getAllThings", RouterBookControllers.getAllThings)
-
-router.get("/getXINRBooks", RouterBookControllers.getIndianPricebooks)
+router.get("/getXINRBooks", RouterBookControllers.getXINRBooks)
 
 router.get("/getRandomBooks", RouterBookControllers.getRandomBooks)
 

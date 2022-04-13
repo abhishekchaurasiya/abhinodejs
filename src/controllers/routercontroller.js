@@ -8,8 +8,7 @@ const createBookUserData = async (req, res) => {
 
 
 const getBookInfo = async (req, res) => {
-
-    let userData = await bookUserModel.find().select({ bookName: true, authorName: true, _id: 0 })
+    let userData = await bookUserModel.find().select({ bookName: 1, authorName: 1, _id: 0 })
     res.send({ message: userData })
 }
 
@@ -20,41 +19,44 @@ const getBooksInYear = async (req, res) => {
     res.send({ message: allbooks })
 }
 
-const getSeparetlybooks = async (req, res) => {
+const getParticularBooks = async (req, res) => {
     let data = req.body;
-    data.bookName;
     let allBooks = await bookUserModel.find(data)
     res.send({ message: allBooks })
 }
 
-const getSeparetlyYears = async (req, res) => {
+const getXINRBooks = async (req, res) => {
     let data = req.body;
     data.year;
-    let allBooks = await bookUserModel.find(data)
+    let allBooks = await bookUserModel.find({ "price.indian": { $in: ["100INR", "200INR", "500INR"] } })
     res.send({ message: allBooks })
 }
 
 // hence the condition will differ based on what you input in the request body
-const getAllThings = async (req, res) => {
-    let data = req.body;
-    data.bookName;
-    data.year;
-    data.authorName;
-    data.price.indianPrice;
-    data.totalPage;
-    let allBooks = await bookUserModel.find(data).select({ bookName: true, authorName: true, price: { indianPrice: true }, _id: 0 }).select({ bookName: true, year: true, authorName: true, price: { indianPrice: true }, totalPage: true, _id: 0 })
-    res.send({ message: allBooks })
-}
+// const getAllThings = async (req, res) => {
+//     let data = req.body;
+//     data.bookName;
+//     data.year;
+//     data.authorName;
+//     data.price.indianPrice;
+//     data.totalPage;
 
 
-const getIndianPricebooks = async (req, res) => {
-    let allbooks = await bookUserModel.find({ price: { indianPrice: { $in: [ "100INR", "200INR" ,"500INR"] } } }).select({ price: { indianPrice: true } })
+//     //     const getParticularBooks = async function(req,res)
+//     // {
+//     //   let condition = req.body
+//     //   let particularBooks = await bookModel.find(condition)
 
-    res.send({ message: allbooks })
-}
+//     //   res.send(particularBooks)
+//     // }
 
-const getRandomBooks = async function (req, res) {
-    let randomBook = await bookUserModel.find({ $or: [{ totalPage: { $gt: 500 } }] }).select({ totalPage: true, bookName: true, authorName: true, price: { indianPrice: true }, _id: 0 })
+//     let allBooks = await bookUserModel.find(data).select({ bookName: true, authorName: true, price: { indianPrice: true }, _id: 0 }).select({ bookName: true, year: true, authorName: true, price: { indianPrice: true }, totalPage: true, _id: 0 })
+//     res.send({ message: allBooks })
+// }
+
+const getRandomBooks = async (req, res) => {
+    let randomBook = await bookUserModel.find({ $or: [{ stcokAvailable: true }, { totalPage: { $gt: 500 } }] })
+    // .select({ totalPage: true, bookName: true, authorName: true, price: { indianPrice: true }, _id: 0 })
     res.send({ msg: randomBook })
 
 }
@@ -63,8 +65,6 @@ const getRandomBooks = async function (req, res) {
 module.exports.createBookUserData = createBookUserData;
 module.exports.getBookInfo = getBookInfo
 module.exports.getBooksInYear = getBooksInYear;
-module.exports.getSeparetlybooks = getSeparetlybooks
-module.exports.getSeparetlyYears = getSeparetlyYears
-module.exports.getAllThings = getAllThings
-module.exports.getIndianPricebooks = getIndianPricebooks
+module.exports.getParticularBooks = getParticularBooks
+module.exports.getXINRBooks = getXINRBooks
 module.exports.getRandomBooks = getRandomBooks

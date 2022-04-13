@@ -12,9 +12,9 @@ let BookUserSchema = new mongoose.Schema({
     },
     year: {
         type: Number,
-        default: Date.now
+        default: 2021
     },
-    tags: ["biography", "horror", "nationalism", "Mystery", "Historical Fiction", "Romance","freedom fighters"],
+    tags: ["biography", "horror", "nationalism", "Mystery", "Historical Fiction", "Romance","freedom fighters", "programming"],
     authorName: String,
     totalPage: Number,
     stcokAvailable: Boolean
