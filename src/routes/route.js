@@ -1,26 +1,54 @@
-
 const express = require('express');
 
 const router = express.Router();
 
-const bookModelSchema = require('../models/bookmodelschema');
-const RouterBookControllers = require("../controllers/routercontroller");
+let players = [
+    {
+        "name": "gopal",
+        "dob": "1/09/1995",
+        "gender": "male",
+        "city": "delhi",
+        "sports": [
+            "soccer"
+        ],
+    },
 
+    {
+        "name": "lokesh",
+        "dob": "1/1/1990",
+        "gender": "male",
+        "city": "mumbai",
+        "sports": [
+            "soccer"
+        ],
+    },
+]
 
+router.post("/players", function (req, res) {
 
-router.post("/createBook", RouterBookControllers.createBookUserData);
+    let allData = req.body
+    let returnData = 0;
+    players.filter((x) => {
+        if (x.name === allData.name) {
+            returnData = 1;
+        }
+    })
+    if (returnData === 1) {
+        return res.send({ message: "This name is already exists" });
+    } else {
+        players.push(allData)
+        console.log(players);
 
-router.get("/bookgetinfo", RouterBookControllers.getBookInfo);
+    }
+    // res.send(players
 
-router.post("/getBookInYear", RouterBookControllers.getBooksInYear);
+    res.send({ data: players, status: true })
 
-router.post("/getParticularBooks", RouterBookControllers.getParticularBooks)
-
-router.get("/getXINRBooks", RouterBookControllers.getXINRBooks)
-
-router.get("/getRandomBooks", RouterBookControllers.getRandomBooks)
+    // res.send('hello')
+})
 
 
 
 
 module.exports = router;
+// adding this comment for no reason
