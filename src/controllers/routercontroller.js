@@ -25,7 +25,7 @@ const getParticularBooks = async (req, res) => {
     res.send({ message: allBooks })
 }
 
-const getXINRBooks = async (req, res) => {
+const priceDetails = async (req, res) => {
     let data = req.body;
     data.year;
     let allBooks = await bookUserModel.find({ "price.indian": { $in: ["100INR", "200INR", "500INR"] } })
@@ -66,6 +66,7 @@ module.exports.createBookUserData = createBookUserData;
 module.exports.getBookInfo = getBookInfo
 module.exports.getBooksInYear = getBooksInYear;
 module.exports.getParticularBooks = getParticularBooks
+module.exports.priceDetails = priceDetails
 module.exports.getXINRBooks = getXINRBooks
 module.exports.getRandomBooks = getRandomBooks
 
